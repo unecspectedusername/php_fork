@@ -1,4 +1,149 @@
-.game-card {
+:root {
+    --blue: #5849CF;
+    --black: #25213A;
+    --grey: #B1B1B9;
+    --light-blue: #EAE8FA;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: #F8F8F8;
+    display: flex;
     height: 100vh;
-    font-family: 'Open Sans', monospace;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+#game_screen {
+    width: 430px;
+    height: 932px;
+    background: var(--blue);
+    border: 5px solid white;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+#progress_bar--container {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#progress_bar--background {
+    width: 85%;
+    height: 5px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+#progress_bar--foreground {
+    width: 0;
+    height: 100%;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+#dynamic_content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+#sub_header {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#inner_screen {
+    background: white;
+    width: 93%;
+    height: 90%;
+    border-radius: 30px;
+    transform: translate(0, 30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inner_screen--header {
+    color: var(--black);
+    font-weight: medium;
+    font-size: 20px;
+    margin: 40px 0;
+}
+
+#answer {
+    margin-bottom: 20px;
+}
+
+.inner_screen--text {
+    color: var(--black);
+    font-weight: 200;
+    font-size: 20px;
+    text-align: center;
+}
+
+.submit_button {
+    background: var(--blue);
+    border: none;
+    color: white;
+    width: 360px;
+    height: 80px;
+    border-radius: 35px;
+    font-size: 20px;
+    margin-top: 40px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit_button:hover {
+    filter: brightness(0.8);
+    -webkit-filter: brightness(0.8);
+}
+
+.button_wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.button_wrapper .submit_button {
+    width: 175px;
+    margin-top: 20px;
+    background: white;
+    color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+
+
+.number_input {
+    box-sizing: border-box;
+    width: 360px;
+    height: 80px;
+    border-radius: 35px;
+    background: var(--light-blue);
+    border: 1px solid var(--blue);
+    padding: 20px;
+    font-size: 30px;
+    font-weight: 500;
+    margin-top: 40px;
 }

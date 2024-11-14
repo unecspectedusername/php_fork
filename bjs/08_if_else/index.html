@@ -1,42 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
     <title>Угадайка</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
+
 <body>
-<div class="container">
-    <div class="row game-card align-items-center">
-        <div class="col col-md-4 offset-md-4">
-            <div class="card text-center">
-                <div class="card-header">
-                    <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
+
+    <div id="game_screen">
+        <div id="progress_bar--container">
+            <div id="progress_bar--background">
+                <div id="progress_bar--foreground"></div>
+            </div>
+        </div>
+        <div id="dynamic_content">
+
+            <!-- <img src="./assets/images/bubble_smile.svg" alt="Маскот" width="150" height="150">
+            <h1>Попытка 1</h1>
+            <div id="sub_header">вы загадали число</div>
+            <div id="inner_screen">
+                <div id="answer" class="inner_screen--header">двадцать три</div>
+                <form>
+                    <button type="submit" class="submit_button">Верно</button>
+                </form>
+                <div class="button_wrapper">
+                    <form id="less">
+                        <button type="submit" class="submit_button small">Меньше</button>
+                    </form>
+                    <form id="greater">
+                        <button type="submit" class="submit_button">Больше</button>
+                    </form>
                 </div>
-                <div class="card-body">
-                    <div class="row no-gutters">
-                        <div class="col">
-                            <h3 class="card-title m-0"><span id="answerField">Вы загадали число 5?</span></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="btn-group">
-                        <button class="btn btn-info" id="btnLess">&#129047;<br>меньше</button>
-                        <button class="btn btn-success btn-lg" id="btnEqual">Верно!</button>
-                        <button class="btn btn-info" id="btnOver">больше<br>&#129045;</button>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-link" id="btnRetry">Заново</button>
-                </div>
+            </div> -->
+
+
+            <img src="./assets/images/bubble_smile.svg" alt="Маскот" width="150" height="150">
+            <h1>Привет!</h1>
+            <div id="sub_header">Давайте сыграем в игру</div>
+            <div id="inner_screen">
+                <div class="inner_screen--header">Правила игры</div>
+                <div class="inner_screen--text">Назовите два любых целых числа<br>и загадайте любое число,<br>которое
+                    находится в диапазоне<br>между ними,<br>а я попробую отгадать.</div>
+                <form id="second">
+                    <button type="submit" class="submit_button">Поехали!</button>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<script src="script.js"></script>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
