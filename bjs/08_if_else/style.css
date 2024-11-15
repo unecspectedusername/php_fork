@@ -110,14 +110,29 @@ h1 {
     margin-top: 40px;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
-
 .submit_button:hover {
     filter: brightness(0.8);
     -webkit-filter: brightness(0.8);
+}
+
+.submit_button--restart {
+    background: none;
+    color: var(--grey);
+    border: none;
+    font-size: 20px;
+    margin-top: 30px;
+    padding: 0 10px;
+    display: inline-block;
+}
+
+.submit_button--restart:hover {
+    border-bottom: 1px solid var(--blue);
+
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
 
 .button_wrapper {
