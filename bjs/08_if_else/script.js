@@ -43,10 +43,14 @@ async function getData(url, callback) {
 dynamicContent.addEventListener('submit', function (event) {
     let target = event.target;
     event.preventDefault();
+    // находим прогрессбар на странице, чтобы менять его стиль
+    let progressBar = document.querySelector('#progress_bar--foreground')
 
     if (target.id == 'second') {
+        progressBar.style.width = '20%';
         getData('./assets/pages/get_first_number.html');
     } else if (target.id == 'third') {
+        progressBar.style.width = '40%';
         // записываем в переменную значение, введенное пользователем
         let userInput = parseInt(document.querySelector('.number_input').value);
         if (isNaN(userInput) || userInput === null) {
@@ -65,6 +69,7 @@ dynamicContent.addEventListener('submit', function (event) {
         // загружаем контент следующей страницы
         getData('./assets/pages/get_second_number.html');
     } else if (target.id == 'fourth') {
+        progressBar.style.width = '60%';
         // по аналогии с первым инпутом, обрабатываем второй
         let userInput = parseInt(document.querySelector('.number_input').value);
         if (isNaN(userInput) || userInput === null) {
@@ -78,6 +83,7 @@ dynamicContent.addEventListener('submit', function (event) {
         }
         getData('./assets/pages/guess_the_number.html');
     } else if (target.id == 'fifth') {
+        progressBar.style.width = '80%';
         getData('./assets/pages/result.html', function () {
             tryGuessNumber();
         });
@@ -245,7 +251,53 @@ function tryGuessNumber () {
     }
 }
 
+// за вывод случайной фразы на странице результата отвечает mathRandom.
+// Недостатком этой функции является то, что она может несколько раз подряд
+// сгенерировать одно и то же число.
+// В этом случае н странице может несколько раз подряд выводиться одна
+// и та же картинка и одна и та же фраза.
+// Я хочу этого избежать, поэтому сделаю механизм, чтобы числ не повторялись.
+
+// в эту переменную будем записывать предыдущее сгенерированное случайное число
+let previousRandom;
+
+// функция для генерации случайного числа
+function random (count) {
+    const number = Math.round(Math.random() * count);
+    return number;
+}
+
+// пути к картинкам и фразам запишем в массивы
+const randomFaces = [
+    './assets/images/bubble_upset_1.svg',
+    './assets/images/bubble_upset_2.svg',
+    './assets/images/bubble_upset_3.svg',
+    './assets/images/bubble_upset_4.svg',
+    './assets/images/bubble_upset_5.svg',
+    './assets/images/bubble_upset_6.svg'
+];
+const randomPhrases = [
+    'может быть это',
+    'тогда, наверное, это',
+    'ну, тогда это',
+    'это определенно',
+    'может это',
+    'наверняка вы загадали'
+];
+
 function tryAgain (state) {
+    // увеличиваем номер попытки
+    attemptCount++;
+    // генерируем случайное число от 0 до 6
+    let randomNumber = random(5);
+    // если число совпадает с тем, что было сгенерированно ранее, генерируем заново
+    while(randomNumber == previousRandom) {
+        randomNumber = random(5);
+    }
+    // сохраняем сгенерированное число для будущих попыток
+    previousRandom = randomNumber
+    document.querySelector('img').src = randomFaces[randomNumber];
+    document.querySelector('#sub_header').textContent = randomPhrases[randomNumber];
     if (state == 'less') {
         secondNumber = answer;
     } else {
