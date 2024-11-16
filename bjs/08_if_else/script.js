@@ -8,7 +8,8 @@ const dynamicContent = document.querySelector('#dynamic_content');
 // Глобальные переменные
 let attemptCount = 1, // здесь запишем номер попытки
     firstNumber = null, // первое число, которое ввел пользователь
-    secondNumber = null; // второе число
+    secondNumber = null, // второе число
+    answer = null; // ответ
 
 // Функция, которая будет менять контент на странице
 async function getData(url, callback) {
@@ -37,7 +38,7 @@ async function getData(url, callback) {
 // Чтобы не вешать на каждый, я решил использовать делегирование событий
 // и поставил eventListener на контейнер dynamicContent, а все поля input
 // и кнопки поместил в form.
-// eventListener будет отслеживать событие 'submit, а затем запускать функции
+// eventListener будет отслеживать событие 'submit', а затем запускать функции
 // в зависимости от id элемента, на котором сработало событие
 dynamicContent.addEventListener('submit', function (event) {
     let target = event.target;
@@ -46,10 +47,35 @@ dynamicContent.addEventListener('submit', function (event) {
     if (target.id == 'second') {
         getData('./assets/pages/get_first_number.html');
     } else if (target.id == 'third') {
-        firstNumber = parseInt(document.querySelector('.number_input').value); // сохраняем первое число, введенное пользователем
+        // записываем в переменную значение, введенное пользователем
+        let userInput = parseInt(document.querySelector('.number_input').value);
+        if (isNaN(userInput) || userInput === null) {
+            // если пользователь не ввел никакого значения, присваиваем переменной firstNumber значение 10
+            firstNumber = 10;
+        } else if (userInput < -999) {
+            // если значение меньше -999, присваиваем -999
+            firstNumber = -999;
+        } else if (userInput > 999) {
+            // если больше 999, присваиваем 999
+            firstNumber = 999;
+        } else {
+            // во всех остальных случаях присваиваем то значение, которое ввел пользователь
+            firstNumber = userInput;
+        }
+        // загружаем контент следующей страницы
         getData('./assets/pages/get_second_number.html');
     } else if (target.id == 'fourth') {
-        secondNumber = parseInt(document.querySelector('.number_input').value);
+        // по аналогии с первым инпутом, обрабатываем второй
+        let userInput = parseInt(document.querySelector('.number_input').value);
+        if (isNaN(userInput) || userInput === null) {
+            secondNumber = 100;
+        } else if (userInput < -999) {
+            secondNumber = -999;
+        } else if (userInput > 999) {
+            secondNumber = 999;
+        } else {
+            secondNumber = userInput;
+        }
         getData('./assets/pages/guess_the_number.html');
     } else if (target.id == 'fifth') {
         getData('./assets/pages/result.html', function () {
@@ -57,6 +83,10 @@ dynamicContent.addEventListener('submit', function (event) {
         });
     } else if (target.id == 'restart') {
         resetGame();
+    } else if (target.id == 'less') {
+        tryAgain('less');
+    } else if (target.id == 'greater') {
+        tryAgain('greater');
     }
 });
 
@@ -71,6 +101,7 @@ function resetGame() {
     attemptCount = 1;
     firstNumber = null;
     secondNumber = null;
+    answer = null;
 }
 
 // функция бинарного поиска
@@ -138,18 +169,18 @@ function transformThreeDigit (number) {
         word = word + ' ' + wordNumbers[tens];
     }
     // Чтобы определить единицы, вычитаем из числа сотни и десятки
-    let units = number - hundreds - tens
+    let units = number - hundreds - tens;
     // если в числе есть единицы, добавляем их запись к сотням и десяткам
     if (units !== 0) {
         word = word + ' ' + wordNumbers[units]
     }
 
+    // возвращаем результат в текстовом виде
     return word;
 }
 
 // вычисляем текстовую запись двухзначного числа
 function transformTwoDigit (number) {
-    // в начале было слово
     let word;
     let tens = number - number % 10;
     word = wordNumbers[tens];
@@ -163,7 +194,7 @@ function transformTwoDigit (number) {
 
 // // вычисляем текстовую запись числа с одним знаком
 function transformOneDigit (number) {
-    return wordNumbers[number]
+    return wordNumbers[number];
 }
 
 // функция по преобразованию числа в текстовую запись
@@ -201,6 +232,8 @@ function tryGuessNumber () {
     displayAttempt();
     // с помощью бинарного поиска находим среднее значение 
     let number = binarySearch();
+    // сохраняем ответ в числовом виде. Он понадобится, если пользователь будет запускать новые попытки
+    answer = number;
     // переводим значение в текст
     let word = transformNumber(number);
     // если текстовая запись числа больше 20 символов, выводим ответ в виде цифр
@@ -212,4 +245,13 @@ function tryGuessNumber () {
     }
 }
 
-resetGame();
+function tryAgain (state) {
+    if (state == 'less') {
+        secondNumber = answer;
+    } else {
+        firstNumber = answer;
+    }
+    tryGuessNumber();
+}
+
+getData('./assets/pages/first_page.html');; // при первой загрузке страницы загружаем контент с помощью fetch
