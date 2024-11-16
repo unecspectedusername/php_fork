@@ -87,6 +87,13 @@ dynamicContent.addEventListener('submit', function (event) {
         getData('./assets/pages/result.html', function () {
             tryGuessNumber();
         });
+    } else if (target.id == 'correct') {
+        progressBar.style.width = '100%';
+        getData('./assets/pages/won.html', function () {
+            let randomNumber = random(2);
+            document.querySelector('img').src = winFaces[randomNumber];
+            document.querySelector('#sub_header').textContent = winPhrases[randomNumber];
+        });
     } else if (target.id == 'restart') {
         resetGame();
     } else if (target.id == 'less') {
@@ -290,7 +297,7 @@ function tryAgain (state) {
     attemptCount++;
     // генерируем случайное число от 0 до 6
     let randomNumber = random(5);
-    // если число совпадает с тем, что было сгенерированно ранее, генерируем заново
+    // если число совпадает с тем, что было сгенерировано ранее, генерируем заново
     while(randomNumber == previousRandom) {
         randomNumber = random(5);
     }
@@ -306,4 +313,16 @@ function tryAgain (state) {
     tryGuessNumber();
 }
 
-getData('./assets/pages/first_page.html');; // при первой загрузке страницы загружаем контент с помощью fetch
+const winPhrases = [
+    'Я всегда одгадываю!',
+    'Это было слишком легко',
+    'Проще простого'
+];
+
+const winFaces = [
+    './assets/images/bubble_win_1.svg',
+    './assets/images/bubble_win_2.svg',
+    './assets/images/bubble_win_3.svg'
+];
+
+getData('./assets/pages/first_page.html'); // при первой загрузке страницы загружаем контент с помощью fetch
