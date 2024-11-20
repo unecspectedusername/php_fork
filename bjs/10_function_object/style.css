@@ -14,7 +14,7 @@ body {
 }
 
 #wrapper {
-    max-width: 500px;
+    width: 500px;
     border-radius: 20px;
     padding: 50px 40px;
     box-shadow: 0 0 20px rgb(0 0 0 / 40%);
@@ -38,7 +38,6 @@ body {
     width: 96%;
     height: 96%;
     border-radius: 50%;
-    background-image: url('assets/m1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -54,6 +53,7 @@ body {
 .text--regular {
     font-weight: 300;
     font-size: 25px;
+    width: 80%;
 }
 
 .text--thin {
@@ -63,6 +63,7 @@ body {
 
 #name {
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 #button--wrapper {
@@ -71,7 +72,8 @@ body {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    margin: 20px 0;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 button {
@@ -85,9 +87,11 @@ button {
 #clear {
     color: var(--cyan);
     border: 2px solid var(--cyan);
+    background-color: #231E39;
 }
 
 #generate {
+    border: none;
     color: #231E39;
     background-color: var(--cyan);
 }
