@@ -11,18 +11,14 @@ function makeRandomPerson () {
     document.querySelector('#profession').textContent = person.profession;
 }
 
-function clear () {
-    document.querySelector('#image').style.backgroundImage = null;
-    document.querySelector('#name').textContent = null;
-    document.querySelector('#gender').textContent = null;
-    document.querySelector('#date').textContent = null;
-    document.querySelector('#profession').textContent = null;
-}
-
 document.querySelector('#generate').addEventListener('click', function() {
     makeRandomPerson();
 });
 
 document.querySelector('#clear').addEventListener('click', function() {
-    clear();
+    document.querySelector('#image').style.backgroundImage = null;
+    document.querySelector('#name').textContent = null;
+    document.querySelector('#gender').textContent = null;
+    document.querySelector('#date').textContent = null;
+    document.querySelector('#profession').textContent = null;
 });
