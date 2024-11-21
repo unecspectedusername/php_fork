@@ -49,21 +49,6 @@ const personGenerator = {
             "id_10": "Марина"
         }
     }`,
-    middleNameJson: `{
-        "count": 10,
-        "list": {     
-            "id_1": "Алексеевич",
-            "id_2": "Сергеевич",
-            "id_3": "Константинович",
-            "id_4": "Олегович",
-            "id_5": "Фёдорович",
-            "id_6": "Михайлович",
-            "id_7": "Андреевич",
-            "id_8": "Данилович",
-            "id_9": "Егорович",
-            "id_10": "Петрович"
-        }
-    }`,
 
     professionMaleJson: `{
         "count": 10,
@@ -178,22 +163,30 @@ const personGenerator = {
 
     randomMiddleName: function () {
 
-        if (this.person.gender == 'Мужчина') {
-            return this.randomValue(this.middleNameJson);
+        let name = this.randomValue(this.firstNameMaleJson);
+        let male = this.person.gender == 'Мужчина';
+
+        if (name.slice(-1) == 'й') {
+            return male ? name.slice(0, -1) + 'евич' : name.slice(0, -1) + 'евна';
+        } else if (name == 'Никита') {
+            return male ? name.slice(0, -1) + 'ич' : name.slice(0, -1) + 'ична';
+        } else if (name.slice(-1) == 'а') {
+            return male ? name.slice(0, -1) + 'ович' : name.slice(0, -1) + 'овна';
+        } else if (name.slice(-2) == 'ил' && name.slice(-3) !== 'иил') {
+            return male ? name.slice(0, -2) + 'йлович' : name.slice(0, -2) + 'йловна';
+        } else if (name.slice(-2) == 'ил' && name.slice(-3) != 'иил') {
+            return male ? name.slice(0, -2) + 'йлович' : name.slice(0, -2) + 'йловна';
         } else {
-            return this.randomValue(this.middleNameJson).slice(0, -2) + 'на';
+            console.log(name);
+            return male ? name + 'ович' : name + 'овна';
         }
 
     },
 
-
     randomSurname: function () {
 
-        if (this.person.gender == 'Мужчина') {
-            return this.randomValue(this.surnameJson);
-        } else {
-            return this.randomValue(this.surnameJson) + 'а';
-        }
+        return this.person.gender == 'Мужчина' ? this.randomValue(this.surnameJson) : this.randomValue(this.surnameJson) + 'а';
+
     },
 
     randomGender: function () {
